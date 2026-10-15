@@ -236,7 +236,7 @@ public class TicketChecker : MonoBehaviour
 
         GUILayout.Space(10);
         GUILayout.Label("Today: " + System.DateTime.Now.ToString("dd-MM-yyyy"), textStyle);
-        GUILayout.Label("This coach: Sleeper (SL)", textStyle);
+        GUILayout.Label("This coach: " + current.coachCode + " (" + current.coachName + ")", textStyle);
         GUILayout.Label("He is sitting on: Berth " + current.actualBerth, textStyle);
         GUILayout.Space(10);
 

@@ -88,6 +88,12 @@ public class PassengerSpawner : MonoBehaviour
         p.passengerName = firstNames[Random.Range(0, firstNames.Length)] + " " +
                           lastNames[Random.Range(0, lastNames.Length)];
         p.actualBerth = berth.number;
+
+        CoachInfo info = GetComponent<CoachInfo>();
+        string coachClass = info != null ? info.classCode : "SL";
+        p.coachCode = info != null ? info.coachCode : "S1";
+        p.coachName = info != null ? info.className : "Sleeper";
+
         p.pnr = Random.Range(100000, 999999).ToString() + Random.Range(1000, 9999).ToString();
 
         string today = System.DateTime.Now.ToString("dd-MM-yyyy");
@@ -97,7 +103,7 @@ public class PassengerSpawner : MonoBehaviour
         p.hasTicket = true;
         p.ticketBerth = berth.number;
         p.ticketDate = today;
-        p.ticketClass = "SL";
+        p.ticketClass = coachClass;
         p.status = TicketStatus.Valid;
 
         // Then break some tickets
@@ -120,7 +126,7 @@ public class PassengerSpawner : MonoBehaviour
             p.ticketDate = yesterday;
             p.status = TicketStatus.WrongDate;
         }
-        else if (roll < 0.60f)
+        else if (roll < 0.60f && coachClass != "GEN")
         {
             p.ticketClass = "GEN";
             p.status = TicketStatus.GeneralTicket;
